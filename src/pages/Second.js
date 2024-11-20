@@ -3,41 +3,106 @@ import React, { Component } from 'react'
 // State -> O'zgaruvchilar
 
 export default class Second extends Component {
-    // eslint-disable-next-line no-useless-constructor
     constructor(props){
         super(props)
         this.state = {
             year: 2007,
             count: 0,
-            active: false
+            active: false,
+            user: {
+                ism: '',
+                familiya: '',
+                email: '',
+                password: ''
+            }
         }
     }
 
-    handleClick = () => {
-        this.setState(prev => ({
-            count: prev.count + 1
-        }))
-        // this.setState({count: this.state.count + 1})
-    }
+    // handleName = (e) => {
+    //     const { name, value } = e.target
 
-    handleActive = () => {
-        // this.setState({active: !this.state.active})
-        this.setState(prevState => ({
-            active: !prevState.active
+    //     this.setState((prev) => ({
+    //         ...prev,
+    //         user: {
+    //             ...prev.user,
+    //             ismi: value
+    //         }
+    //     }))
+    // }
+
+    // handleLastName = (e) => {
+    //     const { name, value } = e.target
+
+    //     this.setState((prev) => ({
+    //         ...prev,
+    //         user: {
+    //             ...prev.user,
+    //             familiya: value
+    //         }
+    //     }))
+    // }
+
+
+    handlechange = (e) => {
+        const { name, value } = e.target
+
+        console.log("name ", name, " value ", value)
+        this.setState((prev) => ({
+            ...prev,
+            user: {
+                ...prev.user,
+                // ism: value,
+                // familiya: value
+                [name]: value
+            }
         }))
+
     }
 
   render() {
-    console.log("STATE ", this.state.count)
-    const {title, yoshi} = this.props
+
+    console.log("state ", this.state)
     return (
         <>
-            {/* <div>Ismi : {title}</div>
-            <div>Yoshi : {yoshi}</div>
-            <div>Yili : {this.state.year}</div> */}
-            <div>COUNT : {this.state.count}</div>
-            <button onClick={this.handleClick}>Increment</button>
-            <button onClick={this.handleActive()}>{this.state.active ? 'Active' : 'Inactive'}</button>
+            <form className='bg-color-green'>
+                <label> Ismi </label>
+                <input 
+                    name='ism'
+                    placeholder='Ismini kiriting'
+                    onChange={this.handlechange} 
+                />
+                <br />
+                <label> Familiyasi </label>
+                <input 
+                    name='familiya' 
+                    placeholder='Familiyasini kiriting'
+                    onChange={this.handlechange} 
+                />
+                <br />
+                <label> Email </label>
+                <input 
+                    name='email' 
+                    placeholder='Emailni kiriting'
+                    onChange={this.handlechange} 
+                />
+                <br />
+                <label> Password </label>
+                <input 
+                    name='password' 
+                    placeholder='Familiyasini kiriting'
+                    onChange={this.handlechange} 
+                />
+                <br />
+                <button>Jo'natish</button>
+
+                <div>
+                    <h2>Talaba ma'lumotlari</h2>
+                    <h3>Ismi : {this.state.user.ism}</h3>
+                    <h3>Familiya : {this.state.user.familiya}</h3>
+                    <h3>Email : {this.state.user.email}</h3>
+                    <h3>Password : {this.state.user.password}</h3>
+                </div>
+            </form>
         </>
     )
   }

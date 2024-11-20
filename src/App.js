@@ -9,7 +9,6 @@ import { Main as Asosiy } from "./pages/Main"
 function App() {
   return (
     <div>
-     <h1>Hello React!</h1>
      <Asosiy />
     </div>
   );
