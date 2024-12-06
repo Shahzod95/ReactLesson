@@ -1,53 +1,55 @@
-import { Component } from "react";
-import Bola from "./Bola";
-// import { Main as Asosiy } from "./pages/Main"
+import React, { Component, useEffect, useState } from 'react'
 
-// Reactda komponentlar 2 xil bo'ladi 
+// export class App extends Component{
+//   constructor(props){
+//     super(props)
+//     this.state = {
+//       count: 0,
+//       isActive: false
+//     }
+//   }
 
-// Class component 
+//   render(){
+//     return(
+//       <div>
+//         <h1>App</h1>
+//       </div>
+//     )
+//   }
+// }
 
-// Function component 
+const App = (props) => {
+  // useState 
+  const [count, setCount] = useState(100)
+  const [isActive, setIsActive] = useState(false)
 
-class App extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      toggle: false
+  useEffect(() => {
+    if(isActive){
+      console.log("BU EFFECT")
     }
-    console.log("App constructor")
+    return () => {
+      console.log("Bu UnMount")
+    }
+  },[isActive])
+
+  const handleQushish = () => {
+    setCount(prev => prev + 1)
+  }
+
+  const handleUzgartir = () => {
+    setIsActive((prev) => !prev)
+  }
+
+  
+  return (
+    <div>
+      <h1>
+        {count} {isActive ? "True" : "False"}
+      </h1>
+      <button onClick={handleQushish}>Qo'shish</button>
+      <button onClick={handleUzgartir}>O'zgartir</button>
+    </div>
+  )
 }
 
-  async componentDidMount(){
-    const data = await fetch('https://jsonplaceholder.typicode.com/users')
-    const users = await data.json() 
-    console.log("App mounted... ", users)
-  }
-
-  componentDidUpdate(a, b){
-    console.log("App a = ", a, " APP b = ", b)
-  }
-
-  handleToggle = () => {
-    this.setState((prev) => ({
-      ...prev,
-      toggle: !prev.toggle
-    }))
-  }
-  render(){
-    console.log("APP component")
-    return (
-      <div>
-        <button onClick={this.handleToggle}>Toogle</button>
-        {
-          this.state.toggle && (
-            <Bola title="Bola props" toggle={this.state.toggle} />
-          )
-
-        }
-      </div>
-    );
-
-  }
-}
-
-export default App;
+export default App
